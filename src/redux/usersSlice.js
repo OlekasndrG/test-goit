@@ -10,6 +10,7 @@ const UserSlice = createSlice({
       isLoading: false,
       error: null,
     },
+    isFetched: false,
     isFollowing: false,
     followedUsers: [],
     disableLoadmoreBtn: false,
@@ -23,6 +24,9 @@ const UserSlice = createSlice({
         (user) => user !== action.payload
       );
     },
+    allowFetching(state) {
+      state.isFetched = false;
+    },
   },
 
   extraReducers: (builder) => {
@@ -30,6 +34,7 @@ const UserSlice = createSlice({
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.users.isLoading = false;
         state.users.error = null;
+        state.isFetched = true;
         state.users.items = state.users.items.concat(action.payload);
         if (action.payload.length < 3) state.disableLoadmoreBtn = true;
       })
@@ -69,6 +74,10 @@ export const persistedUsereReducer = persistReducer(
   UserSlice.reducer
 );
 
-export const { followUser, unfollowUser, updateTweetCountSuccess } =
-  UserSlice.actions;
+export const {
+  followUser,
+  unfollowUser,
+  updateTweetCountSuccess,
+  allowFetching,
+} = UserSlice.actions;
 export const UsersReducer = UserSlice.reducer;
