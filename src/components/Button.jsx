@@ -2,12 +2,8 @@ import { useSelector } from "react-redux";
 import { getFollowedUsers } from "../redux/selectors";
 import PropTypes from "prop-types";
 
-// import { useEffect, useState } from "react";
 
 export const Button = ({ id, handleClick }) => {
-  // const dispatch = useDispatch();
-  // const Following = useSelector(isFollowing);
-  // const Alls = useSelector(getAllUsers);
   const followedUsers = useSelector(getFollowedUsers);
 
   return (

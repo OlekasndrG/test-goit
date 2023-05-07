@@ -3,9 +3,7 @@ import { ReactComponent as Logo } from "../img/GoItLogo.svg";
 
 export const UserCardContainer = styled.div`
   display: flex;
-  /* text-align: center;
-  align-items: center;
-  justify-content: center; */
+  flex: 0 0 25%;
   flex-direction: column;
   width: 380px;
   height: 460px;
@@ -24,10 +22,6 @@ export const CardLogo = styled(Logo)`
   position: absolute;
   top: 20px;
   left: 20px;
-  background: rgba(255, 255, 255, 0.3);
-  svg {
-    fill: currentColor;
-  }
 `;
 export const UpperContainer = styled.div`
   width: 100%;

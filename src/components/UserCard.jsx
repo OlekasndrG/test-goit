@@ -23,9 +23,7 @@ export const UserCard = ({ id, avatar, tweets, followers }) => {
   useEffect(() => {
     setLocalFollowersCount(Number(followers));
   }, [followers]);
-  const handleClick = (e) => {
-    console.log(e.target.name);
-    // followedUsers.some((user) => user === id.id);
+  const handleClick = () => {
     if (followedUsers.includes(id)) {
       dispatch(unfollowUser(id));
       dispatch(
@@ -60,21 +58,8 @@ export const UserCard = ({ id, avatar, tweets, followers }) => {
       <BottomContainer>
         <p>{Number(tweets)} tweets</p>
         <p>{localFollowersCount} followers</p>
+        {/* <p>{Number(followers)} followers</p> */}
         <Button id={id} handleClick={handleClick} />
-        {/* {!followedUsers.includes(id) ? (
-          <button type="button" name={id} onClick={handleClick}>
-            Follow
-          </button>
-        ) : (
-          <button
-            type="button"
-            name={id}
-            onClick={handleClick}
-            style={{ background: "#5CD3A8" }}
-          >
-            following
-          </button>
-        )} */}
       </BottomContainer>
     </UserCardContainer>
   );
@@ -85,5 +70,4 @@ UserCard.propTypes = {
   avatar: PropTypes.string.isRequired,
   tweets: PropTypes.string.isRequired,
   followers: PropTypes.string.isRequired,
-  //   handleClick: PropTypes.func.isRequired,
 };

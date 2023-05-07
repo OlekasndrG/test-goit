@@ -1,4 +1,6 @@
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { NavContainer } from "./Layout.styled";
+import { HeaderLink } from "./Layout.styled";
 
 export const Layout = () => {
   const location = useLocation();
@@ -7,18 +9,28 @@ export const Layout = () => {
     <>
       {pathname.length > 2 ? (
         <>
-          <div>
-            <NavLink to="/">Back</NavLink>
-          </div>
-          <Outlet />
+          <NavContainer>
+            <div>
+              <HeaderLink to="/">Back</HeaderLink>
+            </div>
+          </NavContainer>
+          <>
+            <Outlet />
+          </>
         </>
       ) : (
         <>
-          <div>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/tweets">Tweets</NavLink>
-          </div>
-          <Outlet />
+          <NavContainer>
+            <div>
+              <HeaderLink to="/" style={{ marginRight: "15px" }}>
+                Home
+              </HeaderLink>
+              <HeaderLink to="/tweets">Tweets</HeaderLink>
+            </div>
+          </NavContainer>
+          <>
+            <Outlet />
+          </>
         </>
       )}
     </>

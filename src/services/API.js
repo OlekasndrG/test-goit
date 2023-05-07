@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 axios.defaults.baseURL = "https://6454c188a74f994b334816db.mockapi.io/users/";
 
@@ -11,12 +13,19 @@ export const fetchUsers = createAsyncThunk(
     // baseURl.searchParams.append("limit", 10);
     try {
       const response = await axios.get(`?page=${page}&&limit=3`);
-      // При успішному запиті повертаємо проміс із даними
+ 
       return response.data;
     } catch (e) {
-      // При помилці запиту повертаємо проміс
-      // який буде відхилений з текстом помилки
-      console.log(e.message);
+    toast.error("Something went wrong ", {
+      position: "top-right",
+      autoClose: 3252,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
       return thunkAPI.rejectWithValue(e.message);
     }
   }
@@ -27,10 +36,18 @@ export const updateTweetCount = createAsyncThunk(
   async ({ userId, followers }, thunkAPI) => {
     try {
       const response = await axios.put(userId, { followers });
-      console.log(response.data);
       return { userId, followers: response.data };
     } catch (e) {
-      console.log(e.message);
+      toast.error("Something went wrong ", {
+        position: "top-right",
+        autoClose: 3252,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return thunkAPI.rejectWithValue(e.message);
     }
   }

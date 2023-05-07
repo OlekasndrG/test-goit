@@ -10,7 +10,6 @@ import {
 } from "redux-persist";
 
 import persistStore from "redux-persist/es/persistStore";
-// import persistReducer from "redux-persist/es/persistReducer";
 import {  persistedUsereReducer } from "./usersSlice";
 
 export const store = configureStore({
@@ -26,5 +25,4 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-// store - наш стор из редакса, в ктором items получают редюсер из созданного персисдет -  persistedContactsReducer
-//
+

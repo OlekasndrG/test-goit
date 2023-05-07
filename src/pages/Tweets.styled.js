@@ -14,15 +14,7 @@ export const CardsContainer = styled.div`
 export const MainContainer = styled.div`
   display: block;
   margin: 20px auto;
-  /* display: flex;
-  text-align: center;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  flex-direction: raw;
-  gap: 30px;
-  margin-left: auto;
-  margin-right: auto; */
+
 `;
 
 export const LoadMoreBtn = styled.button`

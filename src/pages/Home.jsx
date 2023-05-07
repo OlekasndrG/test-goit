@@ -1,11 +1,9 @@
-
+import { HomeContainer } from "./Home.styled";
 
 export const Home = () => {
   return (
-    <>
-      <div>
-        <p>This is Home Page</p>
-      </div>
-    </>
+    <HomeContainer>
+      <h1>Welcome! This is Home Page of the App</h1>
+    </HomeContainer>
   );
 };
