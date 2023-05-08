@@ -11,9 +11,9 @@ const UserSlice = createSlice({
       error: null,
     },
     isFetched: false,
-    isFollowing: false,
     followedUsers: [],
     disableLoadmoreBtn: false,
+    userstoShow: [],
   },
   reducers: {
     followUser(state, action) {
@@ -21,11 +21,18 @@ const UserSlice = createSlice({
     },
     unfollowUser(state, action) {
       state.followedUsers = state.followedUsers.filter(
-        (user) => user !== action.payload
+        (user) => user.id !== action.payload.id
       );
     },
     allowFetching(state) {
       state.isFetched = false;
+    },
+    setUsersToShow(state, action) {
+      state.userstoShow = action.payload;
+      state.disableLoadmoreBtn = true;
+      if (action.payload.length === state.users.items.length) {
+        state.disableLoadmoreBtn = false;
+      }
     },
   },
 
@@ -79,5 +86,6 @@ export const {
   unfollowUser,
   updateTweetCountSuccess,
   allowFetching,
+  setUsersToShow,
 } = UserSlice.actions;
 export const UsersReducer = UserSlice.reducer;

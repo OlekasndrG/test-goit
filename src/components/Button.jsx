@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import { getFollowedUsers } from "../redux/selectors";
 import PropTypes from "prop-types";
 
-
 export const Button = ({ id, handleClick }) => {
   const followedUsers = useSelector(getFollowedUsers);
-
+  const isFollowing = followedUsers.some((user) => user.id === id);
   return (
     <>
-      {!followedUsers.includes(id) ? (
+      {!isFollowing ? (
         <button type="button" name={id} onClick={handleClick}>
           Follow
         </button>

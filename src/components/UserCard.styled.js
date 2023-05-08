@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../img/GoItLogo.svg";
 
+
 export const UserCardContainer = styled.div`
   display: flex;
   flex: 0 0 25%;
@@ -110,4 +111,14 @@ export const BottomContainer = styled.div`
       opacity: 1.2;
     }
   }
+`;
+
+export const SelectContainer = styled.div`
+  display: block;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+
+  margin: 10px auto;
+  margin-bottom: 20px;
 `;

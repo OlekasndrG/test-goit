@@ -10,29 +10,29 @@ import {
 import CardImage from "../img/picture2 1.png";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTweetCount } from "../services/API";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { getFollowedUsers } from "../redux/selectors";
 import { followUser, unfollowUser } from "../redux/usersSlice";
 import DefaultImage from "../img/DefaultImage.png";
 import { Button } from "./Button";
 
-export const UserCard = ({ id, avatar, tweets, followers }) => {
-  const [localFollowersCount, setLocalFollowersCount] = useState(null);
+export const UserCard = (user) => {
+  const { id, avatar, tweets, followers } = user;
+
   const followedUsers = useSelector(getFollowedUsers);
   const dispatch = useDispatch();
-  useEffect(() => {
-    setLocalFollowersCount(Number(followers));
-  }, [followers]);
+ 
+  const isFollowing = followedUsers.some((user) => user.id === id);
   const handleClick = () => {
-    if (followedUsers.includes(id)) {
-      dispatch(unfollowUser(id));
+    if (isFollowing) {
+      dispatch(unfollowUser(user));
       dispatch(
         updateTweetCount({
           userId: id,
           followers: (Number(followers) - 1).toString(),
         })
       );
-      setLocalFollowersCount((prev) => prev - 1);
+     
       return;
     } else {
       dispatch(
@@ -41,8 +41,8 @@ export const UserCard = ({ id, avatar, tweets, followers }) => {
           followers: (Number(followers) + 1).toString(),
         })
       );
-      dispatch(followUser(id));
-      setLocalFollowersCount((prev) => prev + 1);
+      dispatch(followUser(user));
+  
       return;
     }
   };
@@ -57,8 +57,8 @@ export const UserCard = ({ id, avatar, tweets, followers }) => {
       </AvatarImage>
       <BottomContainer>
         <p>{Number(tweets)} tweets</p>
-        <p>{localFollowersCount} followers</p>
-        {/* <p>{Number(followers)} followers</p> */}
+        <p>{new Intl.NumberFormat("en-US").format(followers)} followers</p>
+     
         <Button id={id} handleClick={handleClick} />
       </BottomContainer>
     </UserCardContainer>

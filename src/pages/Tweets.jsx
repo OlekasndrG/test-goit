@@ -2,40 +2,50 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUsers } from "../services/API";
 import {
-  getAllUsers,
+ 
   getIsError,
   getIsFetched,
   getIsLoading,
   getLoadMoreBtnStatus,
+  getUserstoShow,
 } from "../redux/selectors";
 import { CardsContainer, LoadMoreBtn, MainContainer } from "./Tweets.styled";
-// import { fetchUsers } from "./services/API";
-// import { getAllUsers } from "./redux/selectors";
+
 import { UserCard } from "../components/UserCard";
 import { allowFetching } from "../redux/usersSlice";
-// import { MainContainer } from "./Tweets.styled";
+import { Dropdown } from "../components/Dropdown";
+
 
 export const Tweets = () => {
   const [page, setPage] = useState(1);
+  const usersToShow = useSelector(getUserstoShow);
   const dispatch = useDispatch();
   const LoadMoreBtnStatus = useSelector(getLoadMoreBtnStatus);
+ 
   const isFetched = useSelector(getIsFetched);
-  console.log(isFetched);
 
-  const Users = useSelector(getAllUsers);
   const error = useSelector(getIsError);
   const loading = useSelector(getIsLoading);
+
+
+  useEffect(() => {
+    if (!isFetched) {
+      dispatch(fetchUsers(page));
+    }
+  }, [dispatch, page, isFetched]);
+
+
   const handleLoadMoreBtnClick = () => {
     dispatch(allowFetching());
     setPage((prev) => prev + 1);
   };
-  useEffect(() => {
-    if (!isFetched) dispatch(fetchUsers(page));
-  }, [dispatch, page, isFetched]);
+
   return (
     <MainContainer>
+      <Dropdown />
       <CardsContainer>
-        {Users?.map(({ id, avatar, tweets, followers }) => {
+        {usersToShow?.map((user) => {
+          const { id, avatar, tweets, followers } = user;
           return (
             <UserCard
               id={id}
