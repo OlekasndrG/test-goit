@@ -5,3 +5,4 @@ export const getFollowedUsers = (state) => state.users.followedUsers;
 export const getLoadMoreBtnStatus = (state) => state.users.disableLoadmoreBtn;
 export const getIsFetched = (state) => state.users.isFetched;
 export const getUserstoShow = (state) => state.users.userstoShow;
+export const getFilter = (state) => state.users.userstoShow;

@@ -10,19 +10,23 @@ import {
 import CardImage from "../img/picture2 1.png";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTweetCount } from "../services/API";
-// import { useEffect, useState } from "react";
 import { getFollowedUsers } from "../redux/selectors";
 import { followUser, unfollowUser } from "../redux/usersSlice";
 import DefaultImage from "../img/DefaultImage.png";
 import { Button } from "./Button";
+import { useEffect, useState } from "react";
 
 export const UserCard = (user) => {
   const { id, avatar, tweets, followers } = user;
 
   const followedUsers = useSelector(getFollowedUsers);
   const dispatch = useDispatch();
- 
+  const [localFollowersCount, setLocalFollowersCount] = useState(null);
   const isFollowing = followedUsers.some((user) => user.id === id);
+
+  useEffect(() => {
+    setLocalFollowersCount(Number(followers));
+  }, [followers]);
   const handleClick = () => {
     if (isFollowing) {
       dispatch(unfollowUser(user));
@@ -32,7 +36,7 @@ export const UserCard = (user) => {
           followers: (Number(followers) - 1).toString(),
         })
       );
-     
+      setLocalFollowersCount((prev) => prev - 1);
       return;
     } else {
       dispatch(
@@ -42,10 +46,14 @@ export const UserCard = (user) => {
         })
       );
       dispatch(followUser(user));
-  
+      setLocalFollowersCount((prev) => prev + 1);
       return;
     }
   };
+  useEffect(() => {
+    setLocalFollowersCount(Number(followers));
+  }, [followers]);
+
   return (
     <UserCardContainer key={id}>
       <CardLogo />
@@ -57,8 +65,10 @@ export const UserCard = (user) => {
       </AvatarImage>
       <BottomContainer>
         <p>{Number(tweets)} tweets</p>
-        <p>{new Intl.NumberFormat("en-US").format(followers)} followers</p>
-     
+
+        <p>
+          {new Intl.NumberFormat("en-US").format(localFollowersCount)} followers
+        </p>
         <Button id={id} handleClick={handleClick} />
       </BottomContainer>
     </UserCardContainer>

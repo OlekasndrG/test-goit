@@ -12,7 +12,6 @@ import {  LoadMoreBtn, MainContainer } from "./Tweets.styled";
 
 
 import { allowFetching } from "../redux/usersSlice";
-import { Dropdown } from "../components/Dropdown";
 import { Tweets } from "../components/TweetsView";
 
 export const TweetsPage = () => {
@@ -20,9 +19,7 @@ export const TweetsPage = () => {
 
   const dispatch = useDispatch();
   const LoadMoreBtnStatus = useSelector(getLoadMoreBtnStatus);
-
   const isFetched = useSelector(getIsFetched);
-
   const error = useSelector(getIsError);
   const loading = useSelector(getIsLoading);
 
@@ -39,7 +36,6 @@ export const TweetsPage = () => {
 
   return (
     <MainContainer>
-      <Dropdown />
       <Tweets />
       {loading ? (
         <p>loading</p>
