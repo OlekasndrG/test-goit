@@ -1,14 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Tweets } from "./pages/Tweets";
+import { TweetsPage } from "./pages/Tweets";
 import { Layout } from "./pages/Layout";
 import { ToastContainer } from "react-toastify";
 
-
 export default function App() {
-
-
-
   return (
     <>
       <Routes>
@@ -23,7 +19,7 @@ export default function App() {
               </>
             }
           />
-          <Route path="/tweets" element={<Tweets />} />
+          <Route path="/tweets" element={<TweetsPage />} />
         </Route>
       </Routes>
       <ToastContainer
